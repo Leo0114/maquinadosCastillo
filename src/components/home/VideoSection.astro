@@ -5,13 +5,25 @@ import VideoGrid from "@/components/shared/VideoGrid.astro";
 
 // Import videos - Astro processes these
 const v1 = (await import("@/assets/videos/vertical/v1.mp4?url")).default;
+const v2 = (await import("@/assets/videos/vertical/v2.mp4?url")).default;
 const v3 = (await import("@/assets/videos/vertical/v3.mp4?url")).default;
-const v11 = (await import("@/assets/videos/vertical/v11.mp4?url")).default;
+const v4 = (await import("@/assets/videos/vertical/v4.mp4?url")).default;
+const v5 = (await import("@/assets/videos/vertical/v5.mp4?url")).default;
+const v6 = (await import("@/assets/videos/vertical/v6.mp4?url")).default;
+const v7 = (await import("@/assets/videos/vertical/v7.mp4?url")).default;
+const v8 = (await import("@/assets/videos/vertical/v8.mp4?url")).default;
+const v9 = (await import("@/assets/videos/vertical/v9.mp4?url")).default;
 
 const videos = [
   { src: v1, label: "Proceso de fresado CNC" },
+  { src: v2, label: "Precisión milimétrica" },
   { src: v3, label: "Maquinado de precisión" },
-  { src: v11, label: "Control de calidad" },
+  { src: v4, label: "Acabado superficial" },
+  { src: v5, label: "Operación de torno" },
+  { src: v6, label: "Alta tecnología CNC" },
+  { src: v7, label: "Desarrollo de piezas" },
+  { src: v8, label: "Revisión técnica" },
+  { src: v9, label: "Inspección rigurosa" },
 ];
 ---
 
