@@ -34,12 +34,21 @@ const stats = [
 
 // Why us points — using react-icons
 const whyUs = [
-  { Icon: TbBolt,              text: "Respuesta ágil para requerimientos urgentes" },
-  { Icon: TbLink,              text: "Integración: diseño + maquinado + ajuste + metrología 3D" },
-  { Icon: TbPackage,           text: "Flexibilidad en volúmenes (prototipos a series cortas)" },
-  { Icon: TbTools,             text: "Solución a piezas complejas o críticas" },
-  { Icon: TbBuildingFactory2,  text: "Fabricación, reparación y diseño de moldes y troqueles" },
-  { Icon: TbScan,              text: "Escaneo 3D, metrología e ingeniería inversa" },
+  { Icon: TbBolt, text: "Respuesta ágil para requerimientos urgentes" },
+  {
+    Icon: TbLink,
+    text: "Integración: diseño + maquinado + ajuste + metrología 3D",
+  },
+  {
+    Icon: TbPackage,
+    text: "Flexibilidad en volúmenes (prototipos a series cortas)",
+  },
+  { Icon: TbTools, text: "Solución a piezas complejas o críticas" },
+  {
+    Icon: TbBuildingFactory2,
+    text: "Fabricación, reparación y diseño de moldes y troqueles",
+  },
+  { Icon: TbScan, text: "Escaneo 3D, metrología e ingeniería inversa" },
 ];
 ---
 
@@ -69,14 +78,18 @@ const whyUs = [
               align="left"
             />
             <ul class="mt-8 space-y-4">
-              {whyUs.map(({ Icon, text }) => (
-                <li class="flex items-center gap-4 group">
-                  <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-                    <Icon className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300" />
-                  </span>
-                  <span class="text-ink-muted text-sm leading-relaxed">{text}</span>
-                </li>
-              ))}
+              {
+                whyUs.map(({ Icon, text }) => (
+                  <li class="flex items-center gap-4 group">
+                    <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                      <Icon className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300" />
+                    </span>
+                    <span class="text-ink-muted text-sm leading-relaxed">
+                      {text}
+                    </span>
+                  </li>
+                ))
+              }
             </ul>
             <div class="mt-9 flex flex-wrap gap-4">
               <a
@@ -84,8 +97,18 @@ const whyUs = [
                 class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-widest hover:bg-primary-dark transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-primary/20"
               >
                 Conocer más
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
               </a>
               <a
@@ -101,21 +124,27 @@ const whyUs = [
         <!-- Gallery grid preview -->
         <ScrollReveal client:visible direction="left" delay={0.15}>
           <div class="grid grid-cols-2 gap-3">
-            {[previewImg1, previewImg2, previewImg3, previewImg4].map((img, i) => (
-              <div class:list={[
-                "relative overflow-hidden rounded-2xl",
-                i === 0 ? "col-span-2 h-48" : "h-36",
-              ]}>
-                <Image
-                  src={img}
-                  alt={`Trabajo maquinado ${i + 1}`}
-                  width={i === 0 ? 800 : 400}
-                  height={i === 0 ? 300 : 220}
-                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-              </div>
-            ))}
+            {
+              [previewImg1, previewImg2, previewImg3, previewImg4].map(
+                (img, i) => (
+                  <div
+                    class:list={[
+                      "relative overflow-hidden rounded-2xl",
+                      i === 0 ? "col-span-2 h-48" : "h-36",
+                    ]}
+                  >
+                    <Image
+                      src={img}
+                      alt={`Trabajo maquinado ${i + 1}`}
+                      width={i === 0 ? 800 : 400}
+                      height={i === 0 ? 300 : 220}
+                      class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                ),
+              )
+            }
           </div>
         </ScrollReveal>
       </div>
