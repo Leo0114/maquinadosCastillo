@@ -148,7 +148,9 @@ const currentPath = Astro.url.pathname;
     // Scroll behavior
     const onScroll = () => {
       if (!navbar) return;
-      if (window.scrollY > 60) {
+      const isMenuOpen = mobileMenu && !mobileMenu.classList.contains("hidden");
+      
+      if (window.scrollY > 60 || isMenuOpen) {
         navbar.classList.add(
           "bg-secondary/95",
           "backdrop-blur-md",
@@ -174,6 +176,7 @@ const currentPath = Astro.url.pathname;
       hamburger.addEventListener("click", () => {
         const isOpen = mobileMenu.classList.toggle("hidden") === false;
         hamburger.setAttribute("aria-expanded", String(isOpen));
+        onScroll(); // Re-evaluate background
       });
 
       // Close on link click
