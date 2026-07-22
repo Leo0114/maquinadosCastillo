@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
+import clusterImg from "@/assets/cluster.avif";
+---
+
+<section class="section-py bg-panel border-y border-line">
+  <div class="container-custom">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-10">
+      <div class="md:w-1/2">
+        <ScrollReveal client:visible direction="right">
+          <p class="text-sm font-bold uppercase tracking-widest text-primary mb-3">
+            Alianzas Estratégicas
+          </p>
+          <h2 class="font-display font-bold text-3xl md:text-4xl text-ink mb-5">
+            Orgullosamente parte de Clusters Herramentales
+          </h2>
+          <p class="text-ink-muted leading-relaxed mb-8">
+            Formamos parte activa del Clúster de Herramentales de Nuevo León, una asociación civil que busca integrar a la industria para elevar la competitividad de las empresas del sector metalmecánico, herramentales y proveeduría en general.
+          </p>
+          <a
+            href="https://www.clusterdeherramentales.com/asociados"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 btn-primary"
+          >
+            Conoce más sobre nosotros en el Clúster
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </ScrollReveal>
+      </div>
+      
+      <div class="md:w-5/12 w-full">
+        <ScrollReveal client:visible direction="left" delay={0.2}>
+          <a href="https://www.clusterdeherramentales.com/asociados" target="_blank" rel="noopener noreferrer" class="block group relative rounded-3xl overflow-hidden shadow-xl border border-line bg-white p-6 transition-transform hover:scale-105 duration-300">
+            <Image
+              src={clusterImg}
+              alt="Clúster de Herramentales"
+              width={600}
+              height={400}
+              class="w-full h-auto object-contain max-h-64"
+            />
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
+          </a>
+        </ScrollReveal>
+      </div>
+    </div>
+  </div>
+</section>

@@ -9,6 +9,8 @@ import GallerySection from "@/components/shared/GallerySection.astro";
 import VideoSection from "@/components/home/VideoSection.astro";
 import SectionHeader from "@/components/shared/SectionHeader.astro";
 import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
+import ClusterSection from "@/components/home/ClusterSection.astro";
+import HorizontalVideos from "@/components/home/HorizontalVideos.astro";
 import {
   TbBolt,
   TbLink,
@@ -129,6 +131,9 @@ const whyUs = [
     buttonLink="/contacto"
   />
 
+  <!-- 5.5 Cluster Section -->
+  <ClusterSection />
+
   <!-- 6. Gallery -->
   <section class="section-py bg-canvas">
     <div class="container-custom">
@@ -144,6 +149,9 @@ const whyUs = [
       </ScrollReveal>
     </div>
   </section>
+
+  <!-- 6.5 Horizontal Videos -->
+  <HorizontalVideos />
 
   <!-- 7. Video Section -->
   <VideoSection />
