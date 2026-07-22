@@ -1,0 +1,63 @@
+---
+interface Stat {
+  value: string;
+  label: string;
+  suffix?: string;
+}
+
+interface Props {
+  stats: Stat[];
+  light?: boolean;
+}
+
+const { stats, light = false } = Astro.props;
+---
+
+<div
+  class:list={[
+    "w-full py-12 border-y",
+    light
+      ? "bg-white/5 border-white/10 backdrop-blur-sm"
+      : "bg-panel border-line",
+  ]}
+>
+  <div class="container-custom">
+    <div
+      class:list={[
+        "grid grid-cols-2 lg:grid-cols-4 gap-8 divide-y-0",
+        "divide-x-0 sm:divide-x",
+        light ? "sm:divide-white/10" : "sm:divide-line",
+      ]}
+    >
+      {stats.map(({ value, label, suffix = "" }, i) => (
+        <div
+          class:list={[
+            "text-center px-6",
+            i === 0 && "sm:pl-0",
+            i === stats.length - 1 && "sm:pr-0",
+          ]}
+        >
+          <p
+            class:list={[
+              "font-display font-black text-4xl sm:text-5xl lg:text-6xl tabular-nums",
+              light ? "text-white" : "text-primary",
+            ]}
+          >
+            {value}
+            <span class:list={["text-2xl sm:text-3xl", light ? "text-white/60" : "text-accent"]}>
+              {suffix}
+            </span>
+          </p>
+          <p
+            class:list={[
+              "mt-2 text-sm font-medium",
+              light ? "text-white/55" : "text-ink-muted",
+            ]}
+          >
+            {label}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+---
+import { Image } from "astro:assets";
+import HeroSlider from "@/components/shared/HeroSlider.tsx";
+
+// Import all maquinas images
+import imgA from "@/assets/images/maquinas/a.avif";
+import imgM from "@/assets/images/maquinas/maquina.avif";
+import imgM2 from "@/assets/images/maquinas/maquina2.avif";
+import imgM3 from "@/assets/images/maquinas/maquina3.avif";
+
+const slides = [
+  {
+    src: imgM2.src,
+    alt: "Centro de maquinado CNC Maquinados Castillo",
+    title: "Maquinados de Precisión",
+    subtitle: "Soluciones integrales en maquinado CNC, moldes y matrices para la industria manufacturera de alto desempeño.",
+    tag: "Escobedo, Nuevo León · Desde 1996",
+  },
+  {
+    src: imgM3.src,
+    alt: "Herramentales de alta calidad",
+    title: "Herramentales de Alta Calidad",
+    subtitle: "Diseño, fabricación y reparación de moldes, troqueles y matrices con tecnología CNC de última generación.",
+    tag: "+ 30 años de experiencia",
+  },
+  {
+    src: imgA.src,
+    alt: "Ingeniería e innovación en maquinado",
+    title: "Ingeniería e Innovación",
+    subtitle: "Escaneo 3D, ingeniería inversa, metrología y diseño. Soluciones completas para piezas complejas y críticas.",
+    tag: "5 CNC Verticales · Metrología 3D",
+  },
+  {
+    src: imgM.src,
+    alt: "Tu proveedor de confianza en maquinado",
+    title: "Tu Proveedor de Confianza",
+    subtitle: "Integrados al ecosistema de manufactura avanzada de Nuevo León a través del Cluster de Herramentales.",
+    tag: "Cluster de Herramentales NL",
+  },
+];
+---
+
+<div class="relative">
+  <HeroSlider client:load slides={slides} />
+</div>

@@ -1,0 +1,46 @@
+---
+import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
+import SectionHeader from "@/components/shared/SectionHeader.astro";
+import VideoGrid from "@/components/shared/VideoGrid.astro";
+
+// Import videos - Astro processes these
+const v1 = (await import("@/assets/videos/vertical/v1.mp4?url")).default;
+const v3 = (await import("@/assets/videos/vertical/v3.mp4?url")).default;
+const v11 = (await import("@/assets/videos/vertical/v11.mp4?url")).default;
+
+const videos = [
+  { src: v1, label: "Proceso de fresado CNC" },
+  { src: v3, label: "Maquinado de precisión" },
+  { src: v11, label: "Control de calidad" },
+];
+---
+
+<section class="section-py bg-secondary overflow-hidden">
+  <div class="container-custom">
+    <ScrollReveal client:visible direction="up" className="mb-14">
+      <SectionHeader
+        eyebrow="Nuestra operación"
+        title="Vea nuestro trabajo en acción"
+        subtitle="Procesos de maquinado, acabados y control de calidad en tiempo real desde nuestras instalaciones en Escobedo, NL."
+        light
+      />
+    </ScrollReveal>
+
+    <ScrollReveal client:visible direction="up" delay={0.2}>
+      <VideoGrid
+        videos={videos}
+        columns={3}
+        aspectRatio="vertical"
+      />
+    </ScrollReveal>
+
+    <div class="text-center mt-10">
+      <a
+        href="/que-hacemos"
+        class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/25 text-white text-xs font-semibold uppercase tracking-widest hover:bg-white/10 transition-all duration-300"
+      >
+        Ver todos nuestros servicios
+      </a>
+    </div>
+  </div>
+</section>

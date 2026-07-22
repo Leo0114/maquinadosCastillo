@@ -1,0 +1,49 @@
+---
+interface VideoItem {
+  src: string;
+  label?: string;
+}
+
+interface Props {
+  videos: VideoItem[];
+  columns?: 2 | 3 | 4;
+  aspectRatio?: "vertical" | "square" | "horizontal";
+}
+
+const { videos, columns = 3, aspectRatio = "vertical" } = Astro.props;
+
+const colClass: Record<number, string> = {
+  2: "grid-cols-1 sm:grid-cols-2",
+  3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+  4: "grid-cols-2 lg:grid-cols-4",
+};
+
+const aspectClass: Record<string, string> = {
+  vertical: "aspect-[9/16]",
+  square: "aspect-square",
+  horizontal: "aspect-video",
+};
+---
+
+<div class:list={["grid gap-4", colClass[columns]]}>
+  {videos.map(({ src, label }) => (
+    <div class="relative group overflow-hidden rounded-2xl bg-secondary shadow-lg">
+      <video
+        src={src}
+        class:list={["w-full object-cover", aspectClass[aspectRatio]]}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      />
+      {/* Hover overlay */}
+      <div class="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/20 transition-colors duration-300 pointer-events-none" />
+      {label && (
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-secondary/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+          <p class="text-white text-sm font-medium">{label}</p>
+        </div>
+      )}
+    </div>
+  ))}
+</div>

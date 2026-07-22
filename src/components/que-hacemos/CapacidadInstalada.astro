@@ -1,0 +1,113 @@
+---
+import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
+import SectionHeader from "@/components/shared/SectionHeader.astro";
+
+const machineGroups = [
+  {
+    category: "CNC de Alta Precisión",
+    icon: "⚙️",
+    color: "primary",
+    machines: [
+      { name: "5 Centros de Maquinado CNC Verticales", spec: "50\" X · 20\" Y · 25\" Z" },
+      { name: "1 Torno CNC TF 10P", spec: "Alta precisión" },
+      { name: "1 Erosionadora por Hilo Accutex", spec: "400mm X · 300mm Y · 220mm Z" },
+    ],
+  },
+  {
+    category: "Maquinaria Convencional",
+    icon: "🔧",
+    color: "secondary",
+    machines: [
+      { name: "2 Fresadoras Convencionales", spec: "9\"×36\" y 9\"×42\"" },
+      { name: "2 Tornos Convencionales", spec: "16\"×58\" y 16\"×32\"" },
+      { name: "Rectificadora Cilíndrica ERWIN JUNKER", spec: "Mesa 20\"" },
+      { name: "Rectificadora Plana NORTON", spec: "9\"×24\"" },
+    ],
+  },
+  {
+    category: "Metrología e Ingeniería Inversa",
+    icon: "📐",
+    color: "accent",
+    machines: [
+      { name: "3 Scanners 3D", spec: "Alta resolución" },
+      { name: "Equipo de Metrología Dimensional", spec: "Calibración certificada" },
+      { name: "Software CAD/CAM", spec: "Programación y simulación" },
+    ],
+  },
+];
+
+const investmentProject = {
+  title: "Centro de Maquinado Doble Columna",
+  model: "K-V1530B",
+  brand: "Kimitsu",
+  specs: "3 m en X · 2 m en Y · 1 m en Z",
+  timeline: "Próximos 6 meses",
+};
+---
+
+<section class="section-py bg-panel">
+  <div class="container-custom">
+    <ScrollReveal client:visible direction="up" className="mb-14">
+      <SectionHeader
+        eyebrow="Capacidad instalada"
+        title="Equipamiento de clase mundial"
+        subtitle="Nuestra flota de equipos CNC y convencionales atiende proyectos de diversas escalas con la precisión que la industria demanda."
+      />
+    </ScrollReveal>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      {machineGroups.map(({ category, icon, machines }, i) => (
+        <ScrollReveal client:visible direction="up" delay={i * 0.1}>
+          <div class="p-7 rounded-3xl border border-line bg-canvas h-full">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="text-3xl">{icon}</span>
+              <h3 class="font-display font-bold text-base text-ink leading-tight">{category}</h3>
+            </div>
+            <ul class="space-y-3">
+              {machines.map(({ name, spec }) => (
+                <li class="flex flex-col gap-0.5">
+                  <span class="text-sm font-medium text-ink">{name}</span>
+                  <span class="text-xs text-primary font-semibold uppercase tracking-widest">{spec}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </ScrollReveal>
+      ))}
+    </div>
+
+    <!-- Investment Project -->
+    <ScrollReveal client:visible direction="up" delay={0.2}>
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-secondary to-primary p-8 lg:p-10">
+        {/* Pattern */}
+        <div
+          class="absolute inset-0 opacity-10"
+          style="background-image: repeating-linear-gradient(45deg, white 0px, white 1px, transparent 1px, transparent 20px);"
+        />
+        <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 mb-2">
+              Próximo proyecto de inversión — {investmentProject.timeline}
+            </p>
+            <h3 class="font-display font-bold text-2xl lg:text-3xl text-white mb-1">
+              {investmentProject.title}
+            </h3>
+            <p class="text-white/75 text-base">
+              Modelo <strong class="text-white">{investmentProject.model}</strong> · Marca <strong class="text-white">{investmentProject.brand}</strong>
+            </p>
+            <div class="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm">
+              <span class="w-2 h-2 rounded-full bg-white animate-pulse" />
+              <span class="text-white font-semibold text-sm">{investmentProject.specs}</span>
+            </div>
+          </div>
+          <a
+            href="/contacto"
+            class="shrink-0 inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-secondary text-sm font-bold uppercase tracking-widest hover:bg-white/90 transition-all duration-300 hover:-translate-y-0.5 shadow-xl"
+          >
+            Conocer más
+          </a>
+        </div>
+      </div>
+    </ScrollReveal>
+  </div>
+</section>

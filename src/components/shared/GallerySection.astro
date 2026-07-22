@@ -1,0 +1,102 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  /** "metal" → src/assets/images/metal | "maquinas" → src/assets/images/maquinas */
+  folder: "metal" | "maquinas";
+  title?: string;
+  columns?: 2 | 3 | 4;
+  limit?: number;
+}
+
+const { folder, title, columns = 3, limit } = Astro.props;
+
+// Glob both image directories
+const metalModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/images/metal/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true }
+);
+const maquinasModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/images/maquinas/*.{jpg,jpeg,png,webp,avif}",
+  { eager: true }
+);
+
+const modules = folder === "metal" ? metalModules : maquinasModules;
+
+let images = Object.entries(modules)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([, mod]) => mod.default);
+
+if (limit) images = images.slice(0, limit);
+
+const galleryId = `gallery-${folder}-${Math.random().toString(36).slice(2, 7)}`;
+
+const colClass: Record<number, string> = {
+  2: "grid-cols-2",
+  3: "grid-cols-2 md:grid-cols-3",
+  4: "grid-cols-2 md:grid-cols-4",
+};
+---
+
+{images.length > 0 && (
+  <div class="gallery-block">
+    {title && (
+      <h2 class="font-display text-2xl font-bold text-ink mb-6">{title}</h2>
+    )}
+    <div
+      id={galleryId}
+      class:list={["grid gap-3", colClass[columns]]}
+      data-pswp-gallery
+    >
+      {images.map((img, i) => (
+        <a
+          href={img.src}
+          data-pswp-width={img.width}
+          data-pswp-height={img.height}
+          target="_blank"
+          rel="noreferrer"
+          class:list={[
+            "group relative block overflow-hidden rounded-xl bg-panel",
+            i === 0 && columns === 3 && "col-span-2 row-span-2 md:col-span-2",
+          ]}
+        >
+          <Image
+            src={img}
+            alt={`${folder} ${i + 1}`}
+            width={i === 0 && columns === 3 ? 900 : 500}
+            height={i === 0 && columns === 3 ? 700 : 400}
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 aspect-square"
+          />
+          <div class="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/20 transition-colors duration-300" />
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
+<script>
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import "photoswipe/style.css";
+
+  let lightboxes: PhotoSwipeLightbox[] = [];
+
+  function initGalleries() {
+    document.querySelectorAll<HTMLElement>("[data-pswp-gallery]").forEach((el) => {
+      const lb = new PhotoSwipeLightbox({
+        gallery: `#${el.id}`,
+        children: "a",
+        pswpModule: () => import("photoswipe"),
+      });
+      lb.init();
+      lightboxes.push(lb);
+    });
+  }
+
+  function destroyGalleries() {
+    lightboxes.forEach((lb) => lb.destroy());
+    lightboxes = [];
+  }
+
+  document.addEventListener("astro:page-load", initGalleries);
+  document.addEventListener("astro:before-swap", destroyGalleries);
+</script>

@@ -1,0 +1,125 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PageHero from "@/components/shared/PageHero.astro";
+import ServiciosDetalle from "@/components/que-hacemos/ServiciosDetalle.astro";
+import ProcesoSection from "@/components/que-hacemos/ProcesoSection.astro";
+import CapacidadInstalada from "@/components/que-hacemos/CapacidadInstalada.astro";
+import CTABanner from "@/components/shared/CTABanner.astro";
+import GallerySection from "@/components/shared/GallerySection.astro";
+import VideoGrid from "@/components/shared/VideoGrid.astro";
+import SectionHeader from "@/components/shared/SectionHeader.astro";
+import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
+
+import heroImg from "@/assets/images/maquinas/maquina3.avif";
+
+// Import videos with ?url
+const v4 = (await import("@/assets/videos/vertical/v4.mp4?url")).default;
+const v6 = (await import("@/assets/videos/vertical/v6.mp4?url")).default;
+const v9 = (await import("@/assets/videos/vertical/v9.mp4?url")).default;
+const v13 = (await import("@/assets/videos/vertical/v13.mp4?url")).default;
+
+const videos = [
+  { src: v4, label: "Proceso de maquinado" },
+  { src: v6, label: "Control de calidad" },
+  { src: v9, label: "Acabados de precisión" },
+  { src: v13, label: "Inspección dimensional" },
+];
+
+// Project types
+const projectTypes = [
+  { icon: "🚨", title: "Refacciones Críticas", description: "Cuando la línea no puede parar. Respuesta ágil garantizada." },
+  { icon: "🏗️", title: "Moldes & Troqueles", description: "Desarrollo completo desde diseño hasta primera prueba." },
+  { icon: "🔄", title: "Modificaciones", description: "Adaptaciones y mejoras a herramentales existentes." },
+  { icon: "📏", title: "Piezas Bajo Plano", description: "Fabricación con las tolerancias más exigentes." },
+  { icon: "🔬", title: "Ingeniería Inversa", description: "De la pieza desgastada al modelo 3D y pieza nueva." },
+  { icon: "🧪", title: "Prototipos", description: "Piezas piloto para validación antes de producción." },
+];
+---
+
+<Layout
+  title="Qué Hacemos — Servicios de Maquinados Castillo"
+  description="Maquinado CNC, herramentales, moldes, matrices, acabados, ingeniería inversa y metrología 3D. Capacidad instalada completa en Escobedo, NL."
+>
+  <!-- 1. Page Hero -->
+  <PageHero
+    eyebrow="Nuestros servicios"
+    title="Lo que hacemos"
+    subtitle="Soluciones integrales de maquinado, herramentales e ingeniería para la industria manufacturera de precisión."
+    imageSrc={heroImg.src}
+  />
+
+  <!-- 2. Services Detail -->
+  <ServiciosDetalle />
+
+  <!-- 3. Process -->
+  <ProcesoSection />
+
+  <!-- 4. Project Types -->
+  <section class="section-py bg-canvas">
+    <div class="container-custom">
+      <ScrollReveal client:visible direction="up" className="mb-14">
+        <SectionHeader
+          eyebrow="Tipos de proyecto"
+          title="Resolvemos los retos más complejos"
+          subtitle="Contamos con la experiencia y tecnología para abordar proyectos de alta complejidad y criticidad."
+        />
+      </ScrollReveal>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {projectTypes.map(({ icon, title, description }, i) => (
+          <ScrollReveal client:visible direction="up" delay={i * 0.07}>
+            <div class="group p-6 rounded-3xl border border-line bg-panel hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 h-full">
+              <div class="text-4xl mb-4">{icon}</div>
+              <h3 class="font-display font-bold text-lg text-ink mb-2 group-hover:text-primary transition-colors">{title}</h3>
+              <p class="text-ink-muted text-sm leading-relaxed">{description}</p>
+            </div>
+          </ScrollReveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Capacity -->
+  <CapacidadInstalada />
+
+  <!-- 6. Video Gallery -->
+  <section class="section-py bg-secondary overflow-hidden">
+    <div class="container-custom">
+      <ScrollReveal client:visible direction="up" className="mb-12">
+        <SectionHeader
+          eyebrow="En operación"
+          title="Nuestros procesos en tiempo real"
+          subtitle="Videos de nuestros procesos de maquinado, acabados e inspección de calidad."
+          light
+        />
+      </ScrollReveal>
+      <ScrollReveal client:visible direction="up" delay={0.15}>
+        <VideoGrid videos={videos} columns={4} aspectRatio="vertical" />
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- 7. Gallery -->
+  <section class="section-py bg-panel">
+    <div class="container-custom">
+      <ScrollReveal client:visible direction="up" className="mb-12">
+        <SectionHeader
+          eyebrow="Galería de trabajos"
+          title="Piezas y proyectos realizados"
+          subtitle="Una muestra de la precisión y calidad de nuestros trabajos en maquinado, moldes y herramentales."
+        />
+      </ScrollReveal>
+      <ScrollReveal client:visible direction="up" delay={0.15}>
+        <GallerySection folder="metal" columns={3} />
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- 8. CTA -->
+  <CTABanner
+    eyebrow="¿Tu proyecto encaja?"
+    title="Cuéntanos tu requerimiento"
+    subtitle="Analizamos, cotizamos y comenzamos. Respuesta en menos de 24 horas."
+    buttonText="Solicitar cotización"
+    buttonLink="/contacto"
+  />
+</Layout>

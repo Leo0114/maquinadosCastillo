@@ -1,0 +1,76 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PageHero from "@/components/shared/PageHero.astro";
+import StatsBand from "@/components/shared/StatsBand.astro";
+import QuienesSomos from "@/components/acerca/QuienesSomos.astro";
+import ValoresSection from "@/components/acerca/ValoresSection.astro";
+import TecnologiaSection from "@/components/acerca/TecnologiaSection.astro";
+import SectoresSection from "@/components/acerca/SectoresSection.astro";
+import CTABanner from "@/components/shared/CTABanner.astro";
+import GallerySection from "@/components/shared/GallerySection.astro";
+import SectionHeader from "@/components/shared/SectionHeader.astro";
+import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
+
+// Use nosotros.avif as page hero image
+import nosotrosImg from "@/assets/nosotros.avif";
+
+const stats = [
+  { value: "1996", label: "Fundación" },
+  { value: "12", label: "Técnicos especializados" },
+  { value: "30", label: "Años de experiencia", suffix: "+" },
+  { value: "3", label: "Sectores industriales" },
+];
+---
+
+<Layout
+  title="Acerca de Maquinados Castillo — 30 años de precisión industrial"
+  description="Empresa mexicana con 30+ años de experiencia en maquinado de precisión. Conoce nuestra historia, equipo, tecnología y sectores que atendemos."
+>
+  <!-- 1. Page Hero -->
+  <PageHero
+    eyebrow="Quiénes somos"
+    title="Maquinados Castillo"
+    subtitle="Precisión, Experiencia y Calidad desde 1996 en Escobedo, Nuevo León."
+    imageSrc={nosotrosImg.src}
+  />
+
+  <!-- 2. Stats Band -->
+  <StatsBand stats={stats} />
+
+  <!-- 3. Quiénes Somos -->
+  <QuienesSomos />
+
+  <!-- 4. Valores -->
+  <ValoresSection />
+
+  <!-- 5. Tecnología / Capacidad -->
+  <TecnologiaSection />
+
+  <!-- 6. Sectores -->
+  <SectoresSection />
+
+  <!-- 7. Gallery machines -->
+  <section class="section-py bg-panel">
+    <div class="container-custom">
+      <ScrollReveal client:visible direction="up" className="mb-12">
+        <SectionHeader
+          eyebrow="Instalaciones"
+          title="Nuestros equipos en operación"
+          subtitle="Máquinas de alta tecnología para proyectos de precisión en nuestras instalaciones de Escobedo, NL."
+        />
+      </ScrollReveal>
+      <ScrollReveal client:visible direction="up" delay={0.15}>
+        <GallerySection folder="maquinas" columns={2} />
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- 8. CTA Banner -->
+  <CTABanner
+    eyebrow="¿Listo para empezar?"
+    title="Intégrenos a su cadena de suministro"
+    subtitle="Cuéntenos su proyecto y le daremos una solución integral con los más altos estándares de precisión."
+    buttonText="Contactar ahora"
+    buttonLink="/contacto"
+  />
+</Layout>

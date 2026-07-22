@@ -1,10 +1,112 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@custom-variant dark (&:where(.dark,.dark *));
+/* ─── Dark mode via .dark class ──────────────────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-primary: #0661b7;
-  --color-secondary: #1a3047;
-  --color-accent: #94a3b8;
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
+:root {
+  /* Semantic – light mode */
+  --canvas:     #f5f7fa;
+  --panel:      #ffffff;
+  --ink:        #0f1923;
+  --ink-muted:  #4b5768;
+  --line:       #dde3ea;
+  --strategic:  #0661b7;
+
+  /* Spacing & radius */
+  --section-py: 6rem;
 }
+
+.dark {
+  --canvas:     #0b1622;
+  --panel:      #112032;
+  --ink:        #e4eaf2;
+  --ink-muted:  #8898aa;
+  --line:       #1e3550;
+  --strategic:  #3b82f6;
+}
+
+/* ─── Tailwind Theme ─────────────────────────────────────────────────────── */
+@theme inline {
+  /* Brand */
+  --color-primary:       #0661b7;
+  --color-primary-dark:  #0550a0;
+  --color-secondary:     #1a3047;
+  --color-accent:        #94a3b8;
+
+  /* Semantic – reads CSS vars so dark mode works automatically */
+  --color-canvas:        var(--canvas);
+  --color-panel:         var(--panel);
+  --color-ink:           var(--ink);
+  --color-ink-muted:     var(--ink-muted);
+  --color-line:          var(--line);
+  --color-strategic:     var(--strategic);
+
+  /* Fonts */
+  --font-display:  'Outfit', sans-serif;
+  --font-body:     'Inter', sans-serif;
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.6s ease both;
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  background-color: var(--canvas);
+  color: var(--ink);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ─── Typography Scale ───────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Swiper custom styles ───────────────────────────────────────────────── */
+.swiper-pagination-bullet {
+  background: rgba(255,255,255,0.5) !important;
+  width: 8px !important;
+  height: 8px !important;
+  transition: all 0.3s ease !important;
+}
+.swiper-pagination-bullet-active {
+  background: #ffffff !important;
+  width: 28px !important;
+  border-radius: 4px !important;
+}
+
+/* ─── Utility classes ────────────────────────────────────────────────────── */
+.section-py {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+.container-custom {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--canvas); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--strategic); }

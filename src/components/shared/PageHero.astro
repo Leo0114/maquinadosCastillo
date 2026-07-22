@@ -1,0 +1,63 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  imageSrc: string;
+  imageAlt?: string;
+  height?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  subtitle,
+  imageSrc,
+  imageAlt = title,
+  height = "55vh",
+} = Astro.props;
+---
+
+<section
+  class="relative overflow-hidden flex items-end"
+  style={`min-height: ${height};`}
+>
+  <!-- Background image -->
+  <div class="absolute inset-0">
+    <img
+      src={imageSrc}
+      alt={imageAlt}
+      class="w-full h-full object-cover"
+      loading="eager"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/60 to-secondary/20"
+    >
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="container-custom relative z-10 pb-16 pt-32">
+    <div class="max-w-2xl">
+      {
+        eyebrow && (
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-white mb-3 animate-fade-in">
+            {eyebrow}
+          </p>
+        )
+      }
+      <h1
+        class="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white leading-tight animate-fade-in"
+      >
+        {title}
+      </h1>
+      {
+        subtitle && (
+          <p class="mt-4 text-base sm:text-lg text-white/70 leading-relaxed animate-fade-in">
+            {subtitle}
+          </p>
+        )
+      }
+    </div>
+  </div>
+</section>

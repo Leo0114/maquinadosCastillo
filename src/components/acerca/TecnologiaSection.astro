@@ -1,0 +1,98 @@
+---
+import { Image } from "astro:assets";
+import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
+import SectionHeader from "@/components/shared/SectionHeader.astro";
+import nosotros from "@/assets/nosotros.avif";
+
+const machineGroups = [
+  {
+    category: "CNC de Alta Precisión",
+    icon: "⚙️",
+    machines: [
+      "5 Centros de Maquinado CNC Verticales — 50\" X, 20\" Y, 25\" Z",
+      "1 Torno CNC TF 10P de alta precisión",
+      "1 Erosionadora por Hilo Accutex — 400mm X, 300mm Y, 220mm Z",
+    ],
+  },
+  {
+    category: "Maquinaria Convencional",
+    icon: "🔧",
+    machines: [
+      "2 Fresadoras — 9\"×36\" y 9\"×42\"",
+      "2 Tornos — 16\"×58\" y 16\"×32\"",
+      "Rectificadora Cilíndrica ERWIN JUNKER — mesa 20\"",
+      "Rectificadora Plana NORTON — 9\"×24\"",
+    ],
+  },
+  {
+    category: "Metrología & Ingeniería",
+    icon: "📐",
+    machines: [
+      "3 Scanners 3D de alta resolución",
+      "Equipo de medición y calibración dimensional",
+      "Software CAD/CAM para programación CNC",
+    ],
+  },
+];
+---
+
+<section class="section-py bg-secondary overflow-hidden">
+  <div class="container-custom">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <!-- Machine list -->
+      <ScrollReveal client:visible direction="right">
+        <div>
+          <SectionHeader
+            eyebrow="Capacidad instalada"
+            title="Tecnología que respalda cada proyecto"
+            subtitle="Flota de equipos CNC y convencionales para proyectos de diversas escalas con la precisión que la industria demanda."
+            align="left"
+            light
+          />
+          <div class="mt-9 space-y-5">
+            {machineGroups.map(({ category, icon, machines }) => (
+              <div class="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                <p class="flex items-center gap-2 text-sm font-bold text-white mb-3">
+                  <span class="text-xl">{icon}</span>
+                  {category}
+                </p>
+                <ul class="space-y-2">
+                  {machines.map((m) => (
+                    <li class="flex items-start gap-2 text-sm text-white/65">
+                      <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                      {m}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </ScrollReveal>
+
+      <!-- Image -->
+      <ScrollReveal client:visible direction="left" delay={0.15}>
+        <div class="relative">
+          <div class="rounded-3xl overflow-hidden aspect-[3/4] shadow-2xl">
+            <Image
+              src={nosotros}
+              alt="Equipo de Maquinados Castillo"
+              width={700}
+              height={900}
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-secondary/50 to-transparent" />
+          </div>
+          <!-- Investment callout -->
+          <div class="absolute -bottom-4 -right-4 lg:-right-8 bg-canvas rounded-2xl p-5 shadow-2xl max-w-[220px] border border-line">
+            <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-1">Próxima inversión</p>
+            <p class="font-display font-bold text-ink text-sm leading-tight">
+              Centro de Maquinado<br/>Doble Columna K-V1530B
+            </p>
+            <p class="text-xs text-ink-muted mt-1">3m × 2m × 1m — Kimitsu</p>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
+  </div>
+</section>
