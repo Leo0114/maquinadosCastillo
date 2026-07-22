@@ -1,35 +1,43 @@
 ---
 import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
 import SectionHeader from "@/components/shared/SectionHeader.astro";
+import {
+  TbTargetArrow,
+  TbBolt,
+  TbMicroscope,
+  TbHeartHandshake,
+  TbBuildingFactory2,
+  TbTrendingUp,
+} from "react-icons/tb";
 
 const values = [
   {
-    icon: "🎯",
+    Icon: TbTargetArrow,
     title: "Precisión Absoluta",
     description: "Cada pieza cumple con las tolerancias más exigentes. No hay margen para errores en la industria de precisión.",
   },
   {
-    icon: "⚡",
+    Icon: TbBolt,
     title: "Respuesta Ágil",
     description: "Cuando la línea de producción no puede parar, respondemos. Nuestra capacidad de reacción rápida es uno de nuestros mayores activos.",
   },
   {
-    icon: "🔬",
+    Icon: TbMicroscope,
     title: "Tecnología Avanzada",
     description: "Metrología 3D, escaneo e ingeniería inversa integrados al proceso. Tecnología de punta al servicio de cada proyecto.",
   },
   {
-    icon: "🤝",
+    Icon: TbHeartHandshake,
     title: "Compromiso Total",
     description: "Trabajamos de la mano con cada cliente para entender sus necesidades y entregar soluciones que impulsen su productividad.",
   },
   {
-    icon: "🏭",
+    Icon: TbBuildingFactory2,
     title: "Capacidad Integral",
     description: "Diseño + maquinado + ajuste + metrología en un solo lugar. Desde el plano hasta la pieza terminada.",
   },
   {
-    icon: "📈",
+    Icon: TbTrendingUp,
     title: "Mejora Continua",
     description: "Sistema de gestión de calidad, capacitación constante y consultores empresariales certificados respaldan cada proceso.",
   },
@@ -47,10 +55,12 @@ const values = [
     </ScrollReveal>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {values.map(({ icon, title, description }, i) => (
+      {values.map(({ Icon, title, description }, i) => (
         <ScrollReveal client:visible direction="up" delay={i * 0.08}>
           <div class="group p-6 rounded-3xl border border-line bg-canvas hover:bg-panel hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-1">
-            <div class="text-4xl mb-4">{icon}</div>
+            <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary transition-all duration-300">
+              <Icon className="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" />
+            </div>
             <h3 class="font-display font-bold text-lg text-ink mb-2 group-hover:text-primary transition-colors">
               {title}
             </h3>

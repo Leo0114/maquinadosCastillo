@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
 import SectionHeader from "@/components/shared/SectionHeader.astro";
+import { TbCut, TbBuildingFactory2, TbScan } from "react-icons/tb";
 
 // Metal images for service highlights
 import metalImg1 from "@/assets/images/metal/metal7.avif";
@@ -13,7 +14,7 @@ const services = [
     title: "Maquinado CNC",
     description: "Fresado y torneado CNC de alta precisión. 5 centros verticales con hasta 50\" en X. Geometrías complejas y tolerancias estrechas.",
     image: metalImg1,
-    icon: "⚙️",
+    Icon: TbCut,
     href: "/que-hacemos#maquinado-cnc",
     tag: "Precisión",
   },
@@ -21,7 +22,7 @@ const services = [
     title: "Herramentales",
     description: "Diseño y fabricación completa de moldes, matrices y troqueles. Desde prototipos hasta series cortas con acabado de primera.",
     image: metalImg2,
-    icon: "🏗️",
+    Icon: TbBuildingFactory2,
     href: "/que-hacemos#herramentales",
     tag: "Ingeniería",
   },
@@ -29,7 +30,7 @@ const services = [
     title: "Ingeniería Inversa",
     description: "Escaneo 3D, digitalización y metrología. Reconstruimos piezas sin planos originales con exactitud milimétrica.",
     image: metalImg3,
-    icon: "📐",
+    Icon: TbScan,
     href: "/que-hacemos#ingenieria",
     tag: "Innovación",
   },
@@ -47,7 +48,7 @@ const services = [
     </ScrollReveal>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-      {services.map(({ title, description, image, icon, href, tag }, i) => (
+      {services.map(({ title, description, image, Icon, href, tag }, i) => (
         <ScrollReveal client:visible direction="up" delay={i * 0.1} className="h-full">
           <article class="group relative bg-panel rounded-3xl overflow-hidden border border-line hover:border-primary/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10 h-full flex flex-col">
             {/* Image */}
@@ -67,7 +68,9 @@ const services = [
 
             {/* Content */}
             <div class="p-6 flex flex-col flex-1">
-              <div class="text-3xl mb-3">{icon}</div>
+              <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                <Icon className="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" />
+              </div>
               <h3 class="font-display font-bold text-xl text-ink mb-3 group-hover:text-primary transition-colors">
                 {title}
               </h3>

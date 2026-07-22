@@ -1,12 +1,12 @@
 ---
 import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
 import SectionHeader from "@/components/shared/SectionHeader.astro";
+import { TbCpu, TbTool, TbScan } from "react-icons/tb";
 
 const machineGroups = [
   {
     category: "CNC de Alta Precisión",
-    icon: "⚙️",
-    color: "primary",
+    Icon: TbCpu,
     machines: [
       { name: "5 Centros de Maquinado CNC Verticales", spec: "50\" X · 20\" Y · 25\" Z" },
       { name: "1 Torno CNC TF 10P", spec: "Alta precisión" },
@@ -15,8 +15,7 @@ const machineGroups = [
   },
   {
     category: "Maquinaria Convencional",
-    icon: "🔧",
-    color: "secondary",
+    Icon: TbTool,
     machines: [
       { name: "2 Fresadoras Convencionales", spec: "9\"×36\" y 9\"×42\"" },
       { name: "2 Tornos Convencionales", spec: "16\"×58\" y 16\"×32\"" },
@@ -26,8 +25,7 @@ const machineGroups = [
   },
   {
     category: "Metrología e Ingeniería Inversa",
-    icon: "📐",
-    color: "accent",
+    Icon: TbScan,
     machines: [
       { name: "3 Scanners 3D", spec: "Alta resolución" },
       { name: "Equipo de Metrología Dimensional", spec: "Calibración certificada" },
@@ -56,16 +54,18 @@ const investmentProject = {
     </ScrollReveal>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-      {machineGroups.map(({ category, icon, machines }, i) => (
+      {machineGroups.map(({ category, Icon, machines }, i) => (
         <ScrollReveal client:visible direction="up" delay={i * 0.1}>
           <div class="p-7 rounded-3xl border border-line bg-canvas h-full">
             <div class="flex items-center gap-3 mb-5">
-              <span class="text-3xl">{icon}</span>
+              <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Icon className="w-5 h-5 text-primary" />
+              </div>
               <h3 class="font-display font-bold text-base text-ink leading-tight">{category}</h3>
             </div>
             <ul class="space-y-3">
               {machines.map(({ name, spec }) => (
-                <li class="flex flex-col gap-0.5">
+                <li class="flex flex-col gap-0.5 pl-1 border-l-2 border-primary/20">
                   <span class="text-sm font-medium text-ink">{name}</span>
                   <span class="text-xs text-primary font-semibold uppercase tracking-widest">{spec}</span>
                 </li>
@@ -76,10 +76,9 @@ const investmentProject = {
       ))}
     </div>
 
-    <!-- Investment Project -->
+    <!-- Investment Project Banner -->
     <ScrollReveal client:visible direction="up" delay={0.2}>
       <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-secondary to-primary p-8 lg:p-10">
-        {/* Pattern */}
         <div
           class="absolute inset-0 opacity-10"
           style="background-image: repeating-linear-gradient(45deg, white 0px, white 1px, transparent 1px, transparent 20px);"

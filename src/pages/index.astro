@@ -9,6 +9,14 @@ import GallerySection from "@/components/shared/GallerySection.astro";
 import VideoSection from "@/components/home/VideoSection.astro";
 import SectionHeader from "@/components/shared/SectionHeader.astro";
 import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
+import {
+  TbBolt,
+  TbLink,
+  TbPackage,
+  TbTools,
+  TbBuildingFactory2,
+  TbScan,
+} from "react-icons/tb";
 
 import previewImg1 from "@/assets/images/metal/metal1.avif";
 import previewImg2 from "@/assets/images/metal/metal5.avif";
@@ -22,14 +30,14 @@ const stats = [
   { value: "3", label: "Scanners 3D" },
 ];
 
-// Why us points
+// Why us points — using react-icons
 const whyUs = [
-  { icon: "⚡", text: "Respuesta ágil para requerimientos urgentes" },
-  { icon: "🔗", text: "Integración: diseño + maquinado + ajuste + metrología 3D" },
-  { icon: "📦", text: "Flexibilidad en volúmenes (prototipos a series cortas)" },
-  { icon: "🛠️", text: "Solución a piezas complejas o críticas" },
-  { icon: "🏗️", text: "Fabricación, reparación y diseño de moldes y troqueles" },
-  { icon: "🔬", text: "Escaneo 3D, metrología e ingeniería inversa" },
+  { Icon: TbBolt,              text: "Respuesta ágil para requerimientos urgentes" },
+  { Icon: TbLink,              text: "Integración: diseño + maquinado + ajuste + metrología 3D" },
+  { Icon: TbPackage,           text: "Flexibilidad en volúmenes (prototipos a series cortas)" },
+  { Icon: TbTools,             text: "Solución a piezas complejas o críticas" },
+  { Icon: TbBuildingFactory2,  text: "Fabricación, reparación y diseño de moldes y troqueles" },
+  { Icon: TbScan,              text: "Escaneo 3D, metrología e ingeniería inversa" },
 ];
 ---
 
@@ -59,10 +67,10 @@ const whyUs = [
               align="left"
             />
             <ul class="mt-8 space-y-4">
-              {whyUs.map(({ icon, text }) => (
-                <li class="flex items-center gap-4">
-                  <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-xl">
-                    {icon}
+              {whyUs.map(({ Icon, text }) => (
+                <li class="flex items-center gap-4 group">
+                  <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                    <Icon className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300" />
                   </span>
                   <span class="text-ink-muted text-sm leading-relaxed">{text}</span>
                 </li>
