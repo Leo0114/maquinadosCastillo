@@ -4,10 +4,10 @@ import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
 import SectionHeader from "@/components/shared/SectionHeader.astro";
 
 // Metal images for services
-import img1 from "@/assets/images/metal/metal7.avif";
-import img2 from "@/assets/images/metal/metal6.avif";
+import img1 from "@/assets/images/que-hacemos/maquinadoCNC.jpg";
+import img2 from "@/assets/images/que-hacemos/maquinadoConvencional.jpg";
 import img3 from "@/assets/images/metal/metal20.avif";
-import img4 from "@/assets/images/metal/metal25.avif";
+import img4 from "@/assets/images/que-hacemos/acabadoPre.jpg";
 import img5 from "@/assets/images/metal/metal27.avif";
 import img6 from "@/assets/images/metal/metal26.avif";
 
@@ -16,10 +16,11 @@ const services = [
     id: "maquinado-cnc",
     icon: "⚙️",
     title: "Maquinado CNC",
-    description: "Fresado y torneado CNC de alta precisión para piezas complejas con tolerancias estrechas.",
+    description:
+      "Fresado y torneado CNC de alta precisión para piezas complejas con tolerancias estrechas.",
     image: img1,
     items: [
-      "Fresado CNC Vertical — hasta 50\" en X",
+      'Fresado CNC Vertical — hasta 50" en X',
       "Torneado CNC de alta precisión",
       "Geometrías 3D y superficies complejas",
       "Programación CAM avanzada",
@@ -29,11 +30,12 @@ const services = [
     id: "maquinado-convencional",
     icon: "🔧",
     title: "Maquinado Convencional",
-    description: "Fresado y torneado convencional para trabajos especializados que requieren mano de obra experta.",
+    description:
+      "Fresado y torneado convencional para trabajos especializados que requieren mano de obra experta.",
     image: img2,
     items: [
-      "Fresadoras de 9\"×36\" y 9\"×42\"",
-      "Tornos de 16\"×58\" y 16\"×32\"",
+      'Fresadoras de 9"×36" y 9"×42"',
+      'Tornos de 16"×58" y 16"×32"',
       "Acabados superficiales finos",
       "Trabajos de ajuste y ensamble",
     ],
@@ -42,7 +44,8 @@ const services = [
     id: "herramentales",
     icon: "🏗️",
     title: "Herramentales",
-    description: "Diseño y fabricación completa de moldes, matrices y troqueles de alta calidad.",
+    description:
+      "Diseño y fabricación completa de moldes, matrices y troqueles de alta calidad.",
     image: img3,
     items: [
       "Moldes de inyección y compresión",
@@ -55,7 +58,8 @@ const services = [
     id: "acabados",
     icon: "✨",
     title: "Acabados de Precisión",
-    description: "Rectificado plano y cilíndrico para lograr los acabados superficiales más exactos.",
+    description:
+      "Rectificado plano y cilíndrico para lograr los acabados superficiales más exactos.",
     image: img4,
     items: [
       "Rectificadora Cilíndrica ERWIN JUNKER",
@@ -68,7 +72,8 @@ const services = [
     id: "ingenieria",
     icon: "📐",
     title: "Ingeniería & Valor Agregado",
-    description: "Diseño, escaneo 3D, ingeniería inversa y metrología para cerrar el ciclo productivo.",
+    description:
+      "Diseño, escaneo 3D, ingeniería inversa y metrología para cerrar el ciclo productivo.",
     image: img5,
     items: [
       "Escaneo 3D y digitalización",
@@ -81,7 +86,8 @@ const services = [
     id: "mantenimiento",
     icon: "🔩",
     title: "Mantenimiento & Pailería",
-    description: "Mantenimiento industrial y trabajos de pailería para soporte a planta en operación.",
+    description:
+      "Mantenimiento industrial y trabajos de pailería para soporte a planta en operación.",
     image: img6,
     items: [
       "Mantenimiento de equipos industriales",
@@ -104,61 +110,78 @@ const services = [
     </ScrollReveal>
 
     <div class="space-y-8">
-      {services.map(({ id, icon, title, description, image, items }, i) => {
-        const isEven = i % 2 === 0;
-        return (
-          <ScrollReveal client:visible direction="up" delay={0.05}>
-            <article
-              id={id}
-              class="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-3xl overflow-hidden border border-line bg-panel hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 scroll-mt-24"
-            >
-              {/* Image */}
-              <div class:list={[
-                "relative overflow-hidden h-64 md:h-auto",
-                !isEven && "md:order-last",
-              ]}>
-                <Image
-                  src={image}
-                  alt={title}
-                  width={700}
-                  height={500}
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div class="absolute inset-0 bg-gradient-to-r from-secondary/20 to-transparent" />
-                <div class="absolute top-5 left-5 w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center text-2xl shadow-lg">
-                  {icon}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div class="p-8 lg:p-10 flex flex-col justify-center">
-                <h3 class="font-display font-bold text-2xl text-ink mb-3 group-hover:text-primary transition-colors">
-                  {title}
-                </h3>
-                <p class="text-ink-muted leading-relaxed mb-6">{description}</p>
-                <ul class="space-y-2.5">
-                  {items.map((item) => (
-                    <li class="flex items-center gap-3 text-sm text-ink-muted">
-                      <span class="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                        <svg class="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="/contacto"
-                  class="mt-7 self-start inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-widest hover:bg-primary-dark transition-all duration-300 hover:-translate-y-0.5 shadow-md shadow-primary/20"
+      {
+        services.map(({ id, icon, title, description, image, items }, i) => {
+          const isEven = i % 2 === 0;
+          return (
+            <ScrollReveal client:visible direction="up" delay={0.05}>
+              <article
+                id={id}
+                class="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-3xl overflow-hidden border border-line bg-panel hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 scroll-mt-24"
+              >
+                {/* Image */}
+                <div
+                  class:list={[
+                    "relative overflow-hidden h-64 md:h-80",
+                    !isEven && "md:order-last",
+                  ]}
                 >
-                  Solicitar cotización
-                </a>
-              </div>
-            </article>
-          </ScrollReveal>
-        );
-      })}
+                  <Image
+                    src={image}
+                    alt={title}
+                    width={700}
+                    height={500}
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-r from-secondary/20 to-transparent" />
+                  <div class="absolute top-5 left-5 w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center text-2xl shadow-lg">
+                    {icon}
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div class="p-8 lg:p-10 flex flex-col justify-center">
+                  <h3 class="font-display font-bold text-2xl text-ink mb-3 group-hover:text-primary transition-colors">
+                    {title}
+                  </h3>
+                  <p class="text-ink-muted leading-relaxed mb-6">
+                    {description}
+                  </p>
+                  <ul class="space-y-2.5">
+                    {items.map((item) => (
+                      <li class="flex items-center gap-3 text-sm text-ink-muted">
+                        <span class="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                          <svg
+                            class="w-3 h-3 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="3"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        </span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href="/contacto"
+                    class="mt-7 self-start inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-widest hover:bg-primary-dark transition-all duration-300 hover:-translate-y-0.5 shadow-md shadow-primary/20"
+                  >
+                    Solicitar cotización
+                  </a>
+                </div>
+              </article>
+            </ScrollReveal>
+          );
+        })
+      }
     </div>
   </div>
 </section>
+
