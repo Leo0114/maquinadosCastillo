@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
 import SectionHeader from "@/components/shared/SectionHeader.astro";
-import about2 from "@/assets/about2.avif";
+import about2 from "@/assets/images/mc23.jpeg";
 
 const paragraphs = [
   "Maquinados Castillo nació en 1996 en Escobedo, Nuevo León, con un compromiso claro: entregar piezas de maquinado con los más altos estándares de precisión y confiabilidad para la industria manufacturera.",
@@ -23,23 +23,29 @@ const paragraphs = [
             align="left"
           />
           <div class="mt-7 space-y-4">
-            {paragraphs.map((p) => (
-              <p class="text-ink-muted text-base leading-relaxed">{p}</p>
-            ))}
+            {
+              paragraphs.map((p) => (
+                <p class="text-ink-muted text-base leading-relaxed">{p}</p>
+              ))
+            }
           </div>
           <!-- Key facts -->
           <div class="mt-9 grid grid-cols-2 gap-4">
-            {[
-              { label: "Fundación", value: "1996" },
-              { label: "Ubicación", value: "Escobedo, NL" },
-              { label: "Especialidad", value: "Maquinado CNC" },
-              { label: "Red", value: "Cluster NL" },
-            ].map(({ label, value }) => (
-              <div class="p-4 rounded-2xl bg-panel border border-line">
-                <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-1">{label}</p>
-                <p class="font-display font-bold text-ink">{value}</p>
-              </div>
-            ))}
+            {
+              [
+                { label: "Fundación", value: "1996" },
+                { label: "Ubicación", value: "Escobedo, NL" },
+                { label: "Especialidad", value: "Maquinado CNC" },
+                { label: "Red", value: "Cluster NL" },
+              ].map(({ label, value }) => (
+                <div class="p-4 rounded-2xl bg-panel border border-line">
+                  <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-1">
+                    {label}
+                  </p>
+                  <p class="font-display font-bold text-ink">{value}</p>
+                </div>
+              ))
+            }
           </div>
         </div>
       </ScrollReveal>
@@ -47,7 +53,9 @@ const paragraphs = [
       <!-- Image side -->
       <ScrollReveal client:visible direction="left" delay={0.15}>
         <div class="relative">
-          <div class="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl">
+          <div
+            class="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl"
+          >
             <Image
               src={about2}
               alt="Instalaciones de Maquinados Castillo"
@@ -55,15 +63,25 @@ const paragraphs = [
               height={900}
               class="w-full h-full object-cover"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-secondary/30 to-transparent" />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-secondary/30 to-transparent"
+            >
+            </div>
           </div>
           <!-- Floating badge -->
-          <div class="absolute -bottom-6 -left-6 bg-primary text-white rounded-2xl p-5 shadow-xl shadow-primary/30">
+          <div
+            class="absolute -bottom-6 -left-6 bg-primary text-white rounded-2xl p-5 shadow-xl shadow-primary/30"
+          >
             <p class="font-display font-black text-4xl">30+</p>
-            <p class="text-xs text-white/80 uppercase tracking-widest mt-1">Años de<br/>experiencia</p>
+            <p class="text-xs text-white/80 uppercase tracking-widest mt-1">
+              Años de<br />experiencia
+            </p>
           </div>
           <!-- Decorative ring -->
-          <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full border-2 border-primary/20" />
+          <div
+            class="absolute -top-4 -right-4 w-24 h-24 rounded-full border-2 border-primary/20"
+          >
+          </div>
         </div>
       </ScrollReveal>
     </div>
