@@ -1,18 +1,20 @@
 ---
 import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
 import SectionHeader from "@/components/shared/SectionHeader.astro";
+import VideoGrid, { type VideoItem } from "@/components/shared/VideoGrid.astro";
 
-// Los videos están en /public o pueden ser referenciados desde public si están ahí
-// En Astro, los assets de src/assets no se importan como src en <video> directamente a menos que se use import.
-// Ya que la URL final será importada:
-import v1 from "@/assets/videos/horizontal/h1.mp4";
-import v2 from "@/assets/videos/horizontal/h2.mp4";
-import v3 from "@/assets/videos/horizontal/h3.mp4";
+// Versiones web generadas con `scripts/optimize-videos.sh` (sin audio, 30 fps, ≤20 s).
+import h1 from "@/assets/videos/web/horizontal/h1.mp4?url";
+import h2 from "@/assets/videos/web/horizontal/h2.mp4?url";
+import h3 from "@/assets/videos/web/horizontal/h3.mp4?url";
+import h1Poster from "@/assets/videos/web/horizontal/h1.jpg";
+import h2Poster from "@/assets/videos/web/horizontal/h2.jpg";
+import h3Poster from "@/assets/videos/web/horizontal/h3.jpg";
 
-const videos = [
-  { src: v1, alt: "Proceso de maquinado 1" },
-  { src: v2, alt: "Proceso de maquinado 2" },
-  { src: v3, alt: "Proceso de maquinado 3" },
+const videos: VideoItem[] = [
+  { src: h1, poster: h1Poster, label: "Proceso de maquinado CNC" },
+  { src: h2, poster: h2Poster, label: "Centro de maquinado en acción" },
+  { src: h3, poster: h3Poster, label: "Detalle de proceso" },
 ];
 ---
 
@@ -26,30 +28,6 @@ const videos = [
       />
     </ScrollReveal>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {videos.map((video, i) => (
-        <ScrollReveal client:visible direction="up" delay={i * 0.15}>
-          <div class="rounded-3xl overflow-hidden border border-line shadow-lg bg-black aspect-video relative group">
-            {/* 
-              Utilizamos autoplay, loop, muted y playsinline. 
-              Esto asegura que los videos se reproduzcan automáticamente y siempre duren sus 10+ segundos sin detenerse.
-            */}
-            <video
-              src={video.src}
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
-              autoplay
-              loop
-              muted
-              playsinline
-              preload="metadata"
-            >
-              Tu navegador no soporta el elemento de video.
-            </video>
-            
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </div>
-        </ScrollReveal>
-      ))}
-    </div>
+    <VideoGrid videos={videos} columns={3} aspectRatio="horizontal" />
   </div>
 </section>

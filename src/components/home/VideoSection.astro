@@ -1,29 +1,38 @@
 ---
 import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
 import SectionHeader from "@/components/shared/SectionHeader.astro";
-import VideoGrid from "@/components/shared/VideoGrid.astro";
+import VideoGrid, { type VideoItem } from "@/components/shared/VideoGrid.astro";
 
-// Import videos - Astro processes these
-const v1 = (await import("@/assets/videos/vertical/v1.mp4?url")).default;
-const v2 = (await import("@/assets/videos/vertical/v2.mp4?url")).default;
-const v3 = (await import("@/assets/videos/vertical/v3.mp4?url")).default;
-const v4 = (await import("@/assets/videos/vertical/v4.mp4?url")).default;
-const v5 = (await import("@/assets/videos/vertical/v5.mp4?url")).default;
-const v6 = (await import("@/assets/videos/vertical/v6.mp4?url")).default;
-const v7 = (await import("@/assets/videos/vertical/v7.mp4?url")).default;
-const v8 = (await import("@/assets/videos/vertical/v8.mp4?url")).default;
-const v9 = (await import("@/assets/videos/vertical/v9.mp4?url")).default;
+// Versiones web generadas con `scripts/optimize-videos.sh` (sin audio, 30 fps, ≤20 s).
+import v1 from "@/assets/videos/web/vertical/v1.mp4?url";
+import v2 from "@/assets/videos/web/vertical/v2.mp4?url";
+import v3 from "@/assets/videos/web/vertical/v3.mp4?url";
+import v4 from "@/assets/videos/web/vertical/v4.mp4?url";
+import v5 from "@/assets/videos/web/vertical/v5.mp4?url";
+import v6 from "@/assets/videos/web/vertical/v6.mp4?url";
+import v7 from "@/assets/videos/web/vertical/v7.mp4?url";
+import v8 from "@/assets/videos/web/vertical/v8.mp4?url";
+import v9 from "@/assets/videos/web/vertical/v9.mp4?url";
+import v1Poster from "@/assets/videos/web/vertical/v1.jpg";
+import v2Poster from "@/assets/videos/web/vertical/v2.jpg";
+import v3Poster from "@/assets/videos/web/vertical/v3.jpg";
+import v4Poster from "@/assets/videos/web/vertical/v4.jpg";
+import v5Poster from "@/assets/videos/web/vertical/v5.jpg";
+import v6Poster from "@/assets/videos/web/vertical/v6.jpg";
+import v7Poster from "@/assets/videos/web/vertical/v7.jpg";
+import v8Poster from "@/assets/videos/web/vertical/v8.jpg";
+import v9Poster from "@/assets/videos/web/vertical/v9.jpg";
 
-const videos = [
-  { src: v1, label: "Proceso de fresado CNC" },
-  { src: v2, label: "Precisión milimétrica" },
-  { src: v3, label: "Maquinado de precisión" },
-  { src: v4, label: "Acabado superficial" },
-  { src: v5, label: "Operación de torno" },
-  { src: v6, label: "Alta tecnología CNC" },
-  { src: v7, label: "Desarrollo de piezas" },
-  { src: v8, label: "Revisión técnica" },
-  { src: v9, label: "Inspección rigurosa" },
+const videos: VideoItem[] = [
+  { src: v1, poster: v1Poster, label: "Proceso de fresado CNC" },
+  { src: v2, poster: v2Poster, label: "Precisión milimétrica" },
+  { src: v3, poster: v3Poster, label: "Maquinado de precisión" },
+  { src: v4, poster: v4Poster, label: "Acabado superficial" },
+  { src: v5, poster: v5Poster, label: "Operación de torno" },
+  { src: v6, poster: v6Poster, label: "Alta tecnología CNC" },
+  { src: v7, poster: v7Poster, label: "Desarrollo de piezas" },
+  { src: v8, poster: v8Poster, label: "Revisión técnica" },
+  { src: v9, poster: v9Poster, label: "Inspección rigurosa" },
 ];
 ---
 
@@ -38,18 +47,12 @@ const videos = [
       />
     </ScrollReveal>
 
-    <ScrollReveal client:visible direction="up" delay={0.2}>
-      <VideoGrid
-        videos={videos}
-        columns={3}
-        aspectRatio="vertical"
-      />
-    </ScrollReveal>
+    <VideoGrid videos={videos} columns={3} aspectRatio="vertical" />
 
     <div class="text-center mt-10">
       <a
         href="/que-hacemos"
-        class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/25 text-white text-xs font-semibold uppercase tracking-widest hover:bg-white/10 transition-all duration-300"
+        class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/25 text-white text-xs font-semibold uppercase tracking-widest hover:bg-white/10 active:scale-[0.97] transition-all duration-300"
       >
         Ver todos nuestros servicios
       </a>

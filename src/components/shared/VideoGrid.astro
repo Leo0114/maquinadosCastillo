@@ -1,7 +1,11 @@
 ---
-interface VideoItem {
+import type { ImageMetadata } from "astro";
+import AmbientVideo from "@/components/shared/AmbientVideo.astro";
+
+export interface VideoItem {
   src: string;
-  label?: string;
+  poster: ImageMetadata;
+  label: string;
 }
 
 interface Props {
@@ -14,7 +18,10 @@ const { videos, columns = 3, aspectRatio = "vertical" } = Astro.props;
 
 const colClass: Record<number, string> = {
   2: "grid-cols-1 sm:grid-cols-2",
-  3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+  3:
+    aspectRatio === "horizontal"
+      ? "grid-cols-1 md:grid-cols-3"
+      : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
   4: "grid-cols-2 lg:grid-cols-4",
 };
 
@@ -25,26 +32,59 @@ const aspectClass: Record<string, string> = {
 };
 ---
 
-<div class:list={["grid gap-4", colClass[columns]]}>
-  {videos.map(({ src, label }) => (
-    <div class="relative group overflow-hidden rounded-2xl bg-secondary shadow-lg">
-      <video
-        src={src}
-        class:list={["w-full object-cover", aspectClass[aspectRatio]]}
-        autoplay
-        muted
-        loop
-        playsinline
-      />
-      {/* Hover overlay */}
-      <div class="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/20 transition-colors duration-300 pointer-events-none" />
-      {label && (
-        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-secondary/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<ul class:list={["video-grid grid gap-4 md:gap-6", colClass[columns]]} role="list">
+  {
+    videos.map(({ src, poster, label }) => (
+      <li class="video-card relative group overflow-hidden rounded-2xl bg-secondary shadow-lg">
+        <AmbientVideo
+          src={src}
+          poster={poster}
+          label={label}
+          class:list={["block w-full object-cover", aspectClass[aspectRatio]]}
+        />
+        <div class="video-card__caption pointer-events-none absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-secondary/90 to-transparent">
           <p class="text-white text-sm font-medium">{label}</p>
         </div>
-      )}
-    </div>
-  ))}
-</div>
+      </li>
+    ))
+  }
+</ul>
 
+<style>
+  /* Caption: oculto en hover-capable, siempre visible en táctil (no hay hover). */
+  @media (hover: hover) {
+    .video-card__caption {
+      opacity: 0;
+      transform: translateY(0.75rem);
+      transition:
+        opacity 240ms ease-out,
+        transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .video-card:hover .video-card__caption {
+      opacity: 1;
+      transform: none;
+    }
+  }
 
+  /*
+   * Reveal ligado al scroll, sin JS: progresivo (si el navegador no soporta
+   * scroll-driven animations, las tarjetas simplemente se ven desde el inicio)
+   * e interrumpible (sigue el scroll del usuario en ambas direcciones).
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .video-card {
+        animation: video-card-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
+    }
+  }
+
+  @keyframes video-card-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+  }
+</style>

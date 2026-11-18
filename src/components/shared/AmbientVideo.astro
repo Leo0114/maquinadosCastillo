@@ -1,0 +1,124 @@
+---
+/**
+ * Video ambiental (muted + loop) optimizado para listas/grids.
+ *
+ * - No descarga nada hasta que el video está cerca del viewport (preload="none").
+ * - Reproduce sólo mientras es visible y se pausa al salir → pocos decodificadores
+ *   activos a la vez (Safari iOS / Android limitan cuántos pueden reproducir).
+ * - Siempre muestra un poster (primer fotograma) → nunca hay cajas negras, incluso
+ *   si el navegador bloquea el autoplay (Low Power Mode, Data Saver, etc.).
+ * - Respeta prefers-reduced-motion y Save-Data: se queda en el poster.
+ * - Funciona con <ClientRouter /> (view transitions): se re-inicializa en cada navegación.
+ * - HTML estático, sin React: el DOM del <video> no depende de hidratación.
+ */
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+
+interface Props {
+  src: string;
+  poster: ImageMetadata;
+  label: string;
+  class?: string;
+  /** Ancho máximo del poster generado (px). */
+  posterWidth?: number;
+}
+
+const { src, poster, label, class: className, posterWidth = 720 } = Astro.props;
+
+const posterImage = await getImage({
+  src: poster,
+  format: "webp",
+  width: Math.min(poster.width, posterWidth),
+  quality: 70,
+});
+---
+
+<video
+  class={className}
+  data-ambient-video
+  poster={posterImage.src}
+  aria-label={label}
+  muted
+  loop
+  playsinline
+  preload="none"
+  disablepictureinpicture
+  disableremoteplayback
+>
+  <source src={src} type="video/mp4" />
+</video>
+
+<script>
+  /** Fracción visible a partir de la cual el video se reproduce. */
+  const VISIBLE_RATIO = 0.25;
+  /** Empieza a cargar antes de que entre en pantalla para que ya esté listo. */
+  const PRELOAD_MARGIN = "300px 0px";
+
+  let playObserver: IntersectionObserver | null = null;
+  let preloadObserver: IntersectionObserver | null = null;
+
+  const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const prefersSavingData = () =>
+    // Network Information API (Chromium); en otros navegadores es undefined.
+    (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
+      ?.saveData === true;
+
+  function play(video: HTMLVideoElement) {
+    // Algunos navegadores ignoran el atributo `muted` si se modificó el DOM;
+    // la propiedad garantiza que el autoplay esté permitido.
+    video.muted = true;
+    video.play().catch(() => {
+      // Autoplay bloqueado (p. ej. Low Power Mode en iOS): se queda el poster.
+    });
+  }
+
+  function teardown() {
+    playObserver?.disconnect();
+    preloadObserver?.disconnect();
+    playObserver = preloadObserver = null;
+  }
+
+  function setup() {
+    teardown();
+
+    const videos = document.querySelectorAll<HTMLVideoElement>(
+      "video[data-ambient-video]",
+    );
+    if (videos.length === 0) return;
+    if (prefersReducedMotion() || prefersSavingData()) return;
+
+    preloadObserver = new IntersectionObserver(
+      (entries, observer) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const video = entry.target as HTMLVideoElement;
+          video.preload = "auto";
+          observer.unobserve(video);
+        }
+      },
+      { rootMargin: PRELOAD_MARGIN },
+    );
+
+    playObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.intersectionRatio >= VISIBLE_RATIO) play(video);
+          else if (!video.paused) video.pause();
+        }
+      },
+      { threshold: [0, VISIBLE_RATIO] },
+    );
+
+    for (const video of videos) {
+      preloadObserver.observe(video);
+      playObserver.observe(video);
+    }
+  }
+
+  // `astro:page-load` se dispara en la carga inicial y tras cada navegación con ClientRouter.
+  document.addEventListener("astro:page-load", setup);
+  document.addEventListener("astro:before-swap", teardown);
+</script>

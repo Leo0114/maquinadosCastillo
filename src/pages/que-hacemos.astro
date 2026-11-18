@@ -6,33 +6,39 @@ import ProcesoSection from "@/components/que-hacemos/ProcesoSection.astro";
 import CapacidadInstalada from "@/components/que-hacemos/CapacidadInstalada.astro";
 import CTABanner from "@/components/shared/CTABanner.astro";
 import GallerySection from "@/components/shared/GallerySection.astro";
-import VideoGrid from "@/components/shared/VideoGrid.astro";
+import VideoGrid, { type VideoItem } from "@/components/shared/VideoGrid.astro";
 import SectionHeader from "@/components/shared/SectionHeader.astro";
 import ScrollReveal from "@/components/shared/ScrollReveal.tsx";
 
 import heroImg from "@/assets/images/maquinas/maquina3.avif";
 
-// Import videos with ?url
-const v4 = (await import("@/assets/videos/vertical/v4.mp4?url")).default;
-const v6 = (await import("@/assets/videos/vertical/v6.mp4?url")).default;
-const v9 = (await import("@/assets/videos/vertical/v9.mp4?url")).default;
-const v13 = (await import("@/assets/videos/vertical/v13.mp4?url")).default;
+// Versiones web generadas con `scripts/optimize-videos.sh` (sin audio, 30 fps, ≤20 s).
+import v4 from "@/assets/videos/web/vertical/v4.mp4?url";
+import v6 from "@/assets/videos/web/vertical/v6.mp4?url";
+import v9 from "@/assets/videos/web/vertical/v9.mp4?url";
+import v13 from "@/assets/videos/web/vertical/v13.mp4?url";
+import h1 from "@/assets/videos/web/horizontal/h1.mp4?url";
+import h2 from "@/assets/videos/web/horizontal/h2.mp4?url";
+import h3 from "@/assets/videos/web/horizontal/h3.mp4?url";
+import v4Poster from "@/assets/videos/web/vertical/v4.jpg";
+import v6Poster from "@/assets/videos/web/vertical/v6.jpg";
+import v9Poster from "@/assets/videos/web/vertical/v9.jpg";
+import v13Poster from "@/assets/videos/web/vertical/v13.jpg";
+import h1Poster from "@/assets/videos/web/horizontal/h1.jpg";
+import h2Poster from "@/assets/videos/web/horizontal/h2.jpg";
+import h3Poster from "@/assets/videos/web/horizontal/h3.jpg";
 
-const h1 = (await import("@/assets/videos/horizontal/h1.mp4?url")).default;
-const h2 = (await import("@/assets/videos/horizontal/h2.mp4?url")).default;
-const h3 = (await import("@/assets/videos/horizontal/h3.mp4?url")).default;
-
-const verticalVideos = [
-  { src: v4, label: "Proceso de maquinado" },
-  { src: v6, label: "Control de calidad" },
-  { src: v9, label: "Acabados de precisión" },
-  { src: v13, label: "Inspección dimensional" },
+const verticalVideos: VideoItem[] = [
+  { src: v4, poster: v4Poster, label: "Proceso de maquinado" },
+  { src: v6, poster: v6Poster, label: "Control de calidad" },
+  { src: v9, poster: v9Poster, label: "Acabados de precisión" },
+  { src: v13, poster: v13Poster, label: "Inspección dimensional" },
 ];
 
-const horizontalVideos = [
-  { src: h1, label: "Vista general de operaciones" },
-  { src: h2, label: "Centro de maquinado en acción" },
-  { src: h3, label: "Detalle de proceso" },
+const horizontalVideos: VideoItem[] = [
+  { src: h1, poster: h1Poster, label: "Vista general de operaciones" },
+  { src: h2, poster: h2Poster, label: "Centro de maquinado en acción" },
+  { src: h3, poster: h3Poster, label: "Detalle de proceso" },
 ];
 
 import {
@@ -142,13 +148,11 @@ const projectTypes = [
           subtitle="Conoce nuestras instalaciones y maquinaria trabajando en proyectos de alta exigencia."
         />
       </ScrollReveal>
-      <ScrollReveal client:visible direction="up" delay={0.15}>
-        <VideoGrid
-          videos={horizontalVideos}
-          columns={3}
-          aspectRatio="horizontal"
-        />
-      </ScrollReveal>
+      <VideoGrid
+        videos={horizontalVideos}
+        columns={3}
+        aspectRatio="horizontal"
+      />
     </div>
   </section>
 
@@ -163,9 +167,7 @@ const projectTypes = [
           light
         />
       </ScrollReveal>
-      <ScrollReveal client:visible direction="up" delay={0.15}>
-        <VideoGrid videos={verticalVideos} columns={4} aspectRatio="vertical" />
-      </ScrollReveal>
+      <VideoGrid videos={verticalVideos} columns={4} aspectRatio="vertical" />
     </div>
   </section>
 
